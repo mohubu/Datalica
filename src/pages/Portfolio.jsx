@@ -133,7 +133,7 @@ export default function Portfolio() {
       </Section>
       
       {/* CTA Section */}
-      <Section background="slate" className="bg-gradient-to-br from-blue-50 to-slate-50">
+      <Section background="none" className="h-fit bg-gradient-to-br from-blue-50 to-slate-50">
         <div className="text-center max-w-3xl mx-auto">
           <h2 className="text-2xl font-medium tracking-tight md:text-4xl lg:text-5xl text-neutral-900 dark:text-neutral-100 mb-4">
             Ready to See Similar Results?

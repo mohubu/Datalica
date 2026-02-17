@@ -3,11 +3,13 @@ export default function Section({
   background = 'white', 
   border = false, 
   padding = 'default',
-  className = '' 
+  className = '',
+  innerClassName = ''
 }) {
   const backgrounds = {
     white: 'bg-white',
-    slate: 'bg-slate-900'
+    slate: 'bg-[#fdfdfd]',
+    none: ''
   }
   
   const paddings = {
@@ -21,7 +23,7 @@ export default function Section({
   
   return (
     <section className={`${backgrounds[background]} ${paddings[padding]} ${borderClass} ${className}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${innerClassName}`.trim()}>
         {children}
       </div>
     </section>

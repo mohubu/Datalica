@@ -8,6 +8,9 @@ import ServicesSection from '../components/ServicesSection'
 import AnalyticsDashboard from '../components/AnalyticsDashboard'
 import MacbookScrollDemo from '../components/ui/macbook-scroll-demo'
 import { InfiniteMovingCards } from '../components/ui/infinite-moving-cards'
+import { DotGridBackground } from '../components/ui/dot-grid-background'
+import LinkPreviewDemo from '../components/link-preview-demo'
+import { useDarkMode } from '../hooks/useDarkMode'
 import { 
   BarChart3, 
   Database, 
@@ -28,6 +31,7 @@ import {
 } from 'lucide-react'
 
 export default function Home() {
+  const isDark = useDarkMode()
   const services = [
     {
       icon: BarChart3,
@@ -116,10 +120,10 @@ export default function Home() {
       
       {/* Problems We Solve Section */}
       <Section background="slate" border>
-        <h2 className="text-2xl font-medium tracking-tight md:text-4xl lg:text-5xl text-white mb-4 text-center">
+        <h2 className="text-2xl font-medium tracking-tight md:text-4xl lg:text-5xl text-neutral-900 dark:text-neutral-100 mb-4 text-center">
           Common Challenges We Help Solve
         </h2>
-        <p className="text-lg text-slate-300 mb-8 text-center">
+        <p className="text-lg text-slate-600 dark:text-slate-300 mb-8 text-center">
           Many organizations struggle with these operational data challenges. We help transform them into opportunities.
         </p>
         <div className="w-full mb-10">
@@ -131,7 +135,7 @@ export default function Home() {
               }))}
               direction="right"
               speed="slow"
-              variant="dark"
+              variant="light"
             />
           </div>
         </div>
@@ -180,30 +184,33 @@ export default function Home() {
         </div>
       </Section>
       
-      {/* Industries We Serve Section */}
-      <Section border>
-        <div className="text-center mb-12">
-          <h2 className="text-2xl font-medium tracking-tight md:text-4xl lg:text-5xl text-neutral-900 dark:text-neutral-100 mb-4">
-            Industries We Work With
-          </h2>
-          <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-            Our experience spans industries where operational efficiency and data-driven decision-making are critical to success.
-          </p>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-          {industries.map((industry, index) => (
-            <div key={index} className="flex flex-col items-center text-center space-y-3">
-              <div className="w-16 h-16 rounded-lg bg-slate-100 flex items-center justify-center text-slate-700">
-                <industry.icon className="w-8 h-8" />
+      {/* Industries We Serve Section - dot grid background like Aceternity dot-distortion */}
+      <section className="relative overflow-hidden bg-white py-16 md:py-24 border-t border-slate-200 dark:bg-neutral-900 dark:border-neutral-800">
+        <DotGridBackground className="bg-white dark:bg-black" dark={isDark} />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl font-medium tracking-tight md:text-4xl lg:text-5xl text-neutral-900 dark:text-neutral-100 mb-4">
+              Industries We Work With
+            </h2>
+            <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+              Our experience spans industries where operational efficiency and data-driven decision-making are critical to success.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            {industries.map((industry, index) => (
+              <div key={index} className="flex flex-col items-center text-center space-y-3">
+                <div className="w-16 h-16 rounded-lg bg-slate-100 dark:bg-neutral-800 flex items-center justify-center text-slate-700 dark:text-slate-300">
+                  <industry.icon className="w-8 h-8" />
+                </div>
+                <h3 className="text-base font-semibold text-slate-900 dark:text-slate-100">{industry.name}</h3>
               </div>
-              <h3 className="text-base font-semibold text-slate-900">{industry.name}</h3>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </Section>
+      </section>
       
       {/* Why Choose Us Section */}
-      <Section background="slate" border>
+      <Section background="slate" border padding="none" className="pt-24 pb-24">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-medium tracking-tight md:text-4xl lg:text-5xl text-neutral-900 dark:text-neutral-100 mb-4 text-center">
             Why Work With Us
@@ -229,33 +236,18 @@ export default function Home() {
         </div>
       </Section>
 
+      {/* Business Intelligence, Power BI & Excel – link preview section */}
+      <Section background="slate" border padding="none">
+        <LinkPreviewDemo />
+      </Section>
+
       {/* Macbook scroll demo - below Why Work With Us */}
       <MacbookScrollDemo />
       
       {/* Final CTA Section - dashed grid layout */}
-      <Section background="slate" padding="none" className="h-fit bg-gradient-to-br from-blue-50 to-slate-50">
+      <Section background="none" padding="none" className="h-fit bg-slate-100" innerClassName="bg-slate-100">
         <div className="w-full">
-          <section className="w-full grid grid-cols-1 md:grid-cols-3 justify-start relative z-20 max-w-7xl mx-auto bg-gradient-to-br from-gray-100 to-white dark:from-neutral-900 dark:to-neutral-950 rounded-xl overflow-hidden">
-            {/* Dashed border - top */}
-            <div
-              className="absolute w-[calc(100%+var(--offset))] h-[var(--height)] left-[calc(var(--offset)/2*-1)] bg-[linear-gradient(to_right,var(--color),var(--color)_50%,transparent_0,transparent)] [background-size:var(--width)_var(--height)] [mask:linear-gradient(to_left,var(--background)_var(--fade-stop),transparent),_linear-gradient(to_right,var(--background)_var(--fade-stop),transparent),_linear-gradient(black,black)] [mask-composite:exclude] z-30 dark:bg-[linear-gradient(to_right,var(--color-dark),var(--color-dark)_50%,transparent_0,transparent)] top-0"
-              style={{ '--background': '#f8fafc', '--color': 'rgba(0, 0, 0, 0.2)', '--height': '1px', '--width': '5px', '--fade-stop': '90%', '--offset': '200px', '--color-dark': 'rgba(255, 255, 255, 0.2)', maskComposite: 'exclude' }}
-            />
-            {/* Dashed border - bottom */}
-            <div
-              className="absolute w-[calc(100%+var(--offset))] h-[var(--height)] left-[calc(var(--offset)/2*-1)] bg-[linear-gradient(to_right,var(--color),var(--color)_50%,transparent_0,transparent)] [background-size:var(--width)_var(--height)] [mask:linear-gradient(to_left,var(--background)_var(--fade-stop),transparent),_linear-gradient(to_right,var(--background)_var(--fade-stop),transparent),_linear-gradient(black,black)] [mask-composite:exclude] z-30 dark:bg-[linear-gradient(to_right,var(--color-dark),var(--color-dark)_50%,transparent_0,transparent)] bottom-0 top-auto"
-              style={{ '--background': '#f8fafc', '--color': 'rgba(0, 0, 0, 0.2)', '--height': '1px', '--width': '5px', '--fade-stop': '90%', '--offset': '200px', '--color-dark': 'rgba(255, 255, 255, 0.2)', maskComposite: 'exclude' }}
-            />
-            {/* Dashed border - left */}
-            <div
-              className="absolute h-[calc(100%+var(--offset))] w-[var(--width)] top-[calc(var(--offset)/2*-1)] bg-[linear-gradient(to_bottom,var(--color),var(--color)_50%,transparent_0,transparent)] [background-size:var(--width)_var(--height)] [mask:linear-gradient(to_top,var(--background)_var(--fade-stop),transparent),_linear-gradient(to_bottom,var(--background)_var(--fade-stop),transparent),_linear-gradient(black,black)] [mask-composite:exclude] z-30 dark:bg-[linear-gradient(to_bottom,var(--color-dark),var(--color-dark)_50%,transparent_0,transparent)] left-0"
-              style={{ '--background': '#f8fafc', '--color': 'rgba(0, 0, 0, 0.2)', '--height': '5px', '--width': '1px', '--fade-stop': '90%', '--offset': '80px', '--color-dark': 'rgba(255, 255, 255, 0.2)', maskComposite: 'exclude' }}
-            />
-            {/* Dashed border - right */}
-            <div
-              className="absolute h-[calc(100%+var(--offset))] w-[var(--width)] top-[calc(var(--offset)/2*-1)] bg-[linear-gradient(to_bottom,var(--color),var(--color)_50%,transparent_0,transparent)] [background-size:var(--width)_var(--height)] [mask:linear-gradient(to_top,var(--background)_var(--fade-stop),transparent),_linear-gradient(to_bottom,var(--background)_var(--fade-stop),transparent),_linear-gradient(black,black)] [mask-composite:exclude] z-30 dark:bg-[linear-gradient(to_bottom,var(--color-dark),var(--color-dark)_50%,transparent_0,transparent)] left-auto right-0"
-              style={{ '--background': '#f8fafc', '--color': 'rgba(0, 0, 0, 0.2)', '--height': '5px', '--width': '1px', '--fade-stop': '90%', '--offset': '80px', '--color-dark': 'rgba(255, 255, 255, 0.2)', maskComposite: 'exclude' }}
-            />
+          <section className="w-full grid grid-cols-1 md:grid-cols-3 justify-start relative z-20 max-w-7xl mx-auto bg-slate-100 overflow-hidden">
             <div className="md:col-span-2 p-8 md:p-14">
               <h2 className="text-left text-2xl font-medium tracking-tight md:text-4xl lg:text-5xl text-neutral-500 dark:text-neutral-200">
                 Make better decisions with{' '}
